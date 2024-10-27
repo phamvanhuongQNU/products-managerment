@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/fillter-status.pug
+include ../../mixins/alert.pug
+block main
+  h1 #{pageTitle}
+  
+  form(action=`${prefixAdmin}/products/create`,method = "POST",enctype="multipart/form-data")
+    div(class="form-group")
+        label(for="title") Tiêu đề
+        input(type="text" class="form-control",name="title", require)
+    div(class="form-group")
+        label(for="description") Mô tả
+        textarea( class="form-control",name="description",rows = "4", require)
+    div(class="form-group")
+        label(for="price") Giá
+        input(type="number" min = "0" class="form-control",name="price",value="0", require)
+    div(class="form-group")
+        label(for="discountPercentage") %Giảm giá
+        input(type="number" min = "0" class="form-control",name="discountPercentage",value="0" require)
+    div(class="form-group")
+        label(for="stock") Số lượng
+        input(type="number" min = "0" class="form-control",name="stock",value="0", require)
+    div(class="form-group")
+        label(for="thumbnail") Ảnh 
+        input(type="file" class="form-control-file",name="thumbnail", require,accept = "image/*")
+    div(class="form-group")
+        label(for="position") Vị trí
+        input(type="number" min = "1" class="form-control",name="position" placeholder ="Tự động tăng", require )
+    div(class = "form-group form-check form-check-inline")
+        input(type="radio" class="form-check-input" id="statusActive",name = "status",value = "active")
+        label(for="statusActive") Hoạt động
+    div(class = "form-group form-check")
+        input(type="radio" class="form-check-input" id="instatusActive",name = "status",value = "inactive")
+        label(for="instatusActive") Không hoạt động 
+    button(class="btn btn-primary" type="submit") Tạo Mới

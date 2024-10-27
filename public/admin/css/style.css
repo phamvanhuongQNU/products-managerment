@@ -1,0 +1,68 @@
+.header{
+    padding: 10px 0;
+    background-color: #212121;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.header .inner-logo a{
+   font-size: large;
+   color: white;
+   font-weight: bold;
+}
+
+.body .sider{
+    width: 150px;
+    height: calc(100vh - 56px);
+    background-color: #323232;
+    color: white;
+    position: fixed;
+    top: 47px;
+    left: 0;
+}
+.body .main{
+    margin: 15px;
+    position: relative;
+    left: 150px;
+    width: calc(100% - 180px);
+}
+
+.sider .inner-menu ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sider .inner-menu ul li{
+    text-align: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid #b6a0a0 ;
+}
+.sider .inner-menu ul li a{
+    color: #fff;
+}
+.sider .inner-menu ul li a:hover{
+    text-decoration: none;
+    color: blue;
+}
+/* Show alter  */
+[show-alert] {
+    position: fixed !important;
+    top: 50px;
+    right: 10px;
+    z-index: 9999;
+}
+ .alert-hidden{
+    animation-name: alert-hidden !important;
+    animation-duration: 0.8s !important;
+    animation-fill-mode: both !important;
+}
+@keyframes alert-hidden{
+    from{
+        right: 150px;
+    }
+    to{
+        right: -300px;
+        display: none;
+    }
+}
+/*End show alter  */
