@@ -14,7 +14,7 @@ buttons.forEach((item) => {
 
 // FORM SEARCH
 const formSearch = document.querySelector("#form-search");
-
+if(formSearch){
 formSearch.addEventListener("submit", (e) => {
   e.preventDefault();
   const keyword = e.target.elements.keyword.value;
@@ -23,6 +23,7 @@ formSearch.addEventListener("submit", (e) => {
     : url.searchParams.delete("keyword");
   window.location.href = url;
 });
+}
 // Pagination
 const buttonsPagination = document.querySelectorAll("[button-pagination]");
 if (buttonsPagination) {
@@ -114,3 +115,21 @@ if (showAlter){
 }  
 
 // End show alter
+
+
+//Preview upload image 
+
+const uploadImage = document.querySelector("[upload-image]")
+if (uploadImage){
+  const uploadImageInput = document.querySelector("[upload-image-input]")
+  const uploadImagePreview = document.querySelector("[upload-image-preview]")
+  uploadImageInput.addEventListener("change",(e)=>{
+    
+    const file = e.target.files[0];
+    if (file){
+      uploadImagePreview.src = URL.createObjectURL(file)
+    }
+  })
+}
+
+//End preview upload image

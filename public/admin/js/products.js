@@ -16,7 +16,7 @@ if (buttonChangeStatus.length > 0) {
     });
   });
 }
-// Change STartus
+// Change Status
 // Delete Item
 const buttonDelete = document.querySelectorAll("[button-delete]")
 if (buttonDelete){

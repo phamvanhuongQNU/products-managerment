@@ -3,7 +3,7 @@ include ../../mixins/fillter-status.pug
 include ../../mixins/alert.pug
 block main
   h1 #{pageTitle}
-  
+  +alert-error(3000)
   form(action=`${prefixAdmin}/products/create`,method = "POST",enctype="multipart/form-data")
     div(class="form-group")
         label(for="title") Tiêu đề
@@ -20,9 +20,10 @@ block main
     div(class="form-group")
         label(for="stock") Số lượng
         input(type="number" min = "0" class="form-control",name="stock",value="0", require)
-    div(class="form-group")
+    div(class="form-group" upload-image)
         label(for="thumbnail") Ảnh 
-        input(type="file" class="form-control-file",name="thumbnail", require,accept = "image/*")
+        input(type="file" class="form-control-file",name="thumbnail", require,accept = "image/*" upload-image-input)
+        img(src="" upload-image-preview,style={width : '200px',height : '200px',"margin-top" : '20px'})
     div(class="form-group")
         label(for="position") Vị trí
         input(type="number" min = "1" class="form-control",name="position" placeholder ="Tự động tăng", require )
@@ -33,3 +34,4 @@ block main
         input(type="radio" class="form-check-input" id="instatusActive",name = "status",value = "inactive")
         label(for="instatusActive") Không hoạt động 
     button(class="btn btn-primary" type="submit") Tạo Mới
+    script(src= "/admin/js/script.js")

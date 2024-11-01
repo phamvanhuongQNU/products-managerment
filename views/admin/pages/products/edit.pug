@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+include ../../mixins/fillter-status.pug
+include ../../mixins/alert.pug
+block main
+  h1 #{pageTitle}
+  +alert-success(3000)
+  form(action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`,method = "POST",enctype="multipart/form-data")
+    div(class="form-group")
+        label(for="title") Tiêu đề
+        input(type="text" class="form-control",name="title" value=product.title, require)
+    div(class="form-group")
+        label(for="description") Mô tả
+        textarea( class="form-control",name="description",rows = "4",value = product.description, require) #{value = product.description}
+    div(class="form-group")
+        label(for="price") Giá
+        input(type="number" min = "0" class="form-control",name="price",value= product.price, require)
+    div(class="form-group")
+        label(for="discountPercentage") %Giảm giá
+        input(type="number" min = "0" class="form-control",name="discountPercentage",value = product.discountPercentage, require)
+    div(class="form-group")
+        label(for="stock") Số lượng
+        input(type="number" min = "0" class="form-control",name="stock",value=product.stock, require)
+    div(class="form-group" upload-image)
+        label(for="thumbnail") Ảnh 
+        input(type="file" class="form-control-file",name="thumbnail", require,accept = "image/*" upload-image-input)
+        img(src=product.thumbnail, upload-image-preview,style={width : '200px',height : '200px',"margin-top" : '20px'})
+    div(class="form-group")
+        label(for="position") Vị trí
+        input(type="number" min = "1" class="form-control",name="position" placeholder ="Tự động tăng",value=product.position require )
+    div(class = "form-group form-check form-check-inline")
+        input(type="radio" class="form-check-input" id="statusActive",name = "status",value = "active",checked= (product.status == "active" ? true : false))
+        label(for="statusActive") Hoạt động
+    div(class = "form-group form-check")
+        input(type="radio" class="form-check-input" id="instatusActive",name = "status",value = "inactive",checked= (product.status == "inactive" ? true : false))
+        label(for="instatusActive") Không hoạt động 
+    button(class="btn btn-primary" type="submit") Sửa
+    script(src= "/admin/js/script.js")

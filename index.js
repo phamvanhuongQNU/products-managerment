@@ -20,10 +20,10 @@ var cookieParser = require('cookie-parser')
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set("view engine", "pug");
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 
 // Nhúng file tĩnh
-app.use(express.static("public"))
+app.use(express.static(`${__dirname}/public`))
 // override with POST having ?_method={PATCH,DELETE,..}
 app.use(methodOverride('_method'))
 // App local varible

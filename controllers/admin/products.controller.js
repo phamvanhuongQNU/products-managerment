@@ -4,6 +4,7 @@ const searchHelper = require("../../helpers/searchProducts");
 const paginationHelper = require("../../helpers/pagination");
 
 const { prefixAdmin } = require("../../config/system");
+
 // [GET] /admin/products
 module.exports.products = async (req, res) => {
   let find = {
@@ -91,6 +92,7 @@ module.exports.changeMulti = async (req, res) => {
   }
   res.redirect("back");
 };
+
 // [DELETE] admin/products/delete/:id
 module.exports.deleteProduct = async (req, res) => {
   const id = req.params.id;
@@ -106,11 +108,12 @@ module.exports.deleteProduct = async (req, res) => {
 
 // [GET] admin/products/create
 module.exports.createProducts = (req,res)=>{
-  res.render("admin/pages/products/create")
+  res.render("admin/pages/products/create",{
+    pageTitle : "Thêm sản phẩm"
+  })
 }
 // POST admin/products/create
-module.exports.createPostProducts =async (  req,res)=>{
- 
+module.exports.createPostProducts =async (req,res)=>{
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -119,10 +122,70 @@ module.exports.createPostProducts =async (  req,res)=>{
     const countProduct =  await Products.countDocuments();
     req.body.position =countProduct + 1
   }
-  req.body.thumbnail = `/uploads/${req.file.filename}`
-  console.log(req.file) 
+  if(req.file)
+    req.body.thumbnail = `/uploads/${req.file.filename}`
+  // console.log(req.file) 
   // Thêm sản phẩm
   const product = new Products(req.body)
   await product.save();
+  req.flash("success", "Thêm sản phẩm thành công");
   res.redirect(`${prefixAdmin}/products`);
+}
+
+// Sửa sản phẩm
+// GET /admin/product/edit/:id
+module.exports.editProduct =async (req,res) =>{
+  try{
+    let find = {
+      deleted : false,
+      _id : req.params.id
+    }
+    const product = await Products.findOne(find);
+    // console.log(product) 
+    res.render("admin/pages/products/edit",{
+      pageTitle : "Chỉnh sửa sản phẩm",
+      product : product
+    })
+  }
+  catch{
+    res.redirect(`${prefixAdmin}/products`);
+  }
+}
+// PATCH /admin/product/edit/:id
+module.exports.editProductPatch =async (req,res) =>{
+  console.log(req.body);
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  
+  req.body.position = parseInt(req.body.position);
+  if(req.file)
+    req.body.thumbnail = `/uploads/${req.file.filename}`
+  try{
+  await Products.updateOne({_id : req.params.id},req.body)
+  req.flash("success", "Cật nhật thành công");
+  }
+  catch{
+  req.flash("error", "Cật nhật thất bại");
+}
+  res.redirect("back");
+}
+
+// Chi tiết sản phẩm
+// GET /admin/product/detail/:id
+module.exports.detailProduct =async (req,res) =>{
+  try{
+    const id = req.params.id;
+    const find = {
+      _id : id,
+      deleted : false
+    }
+    const product = await Products.findOne(find)
+    res.render("admin/pages/products/detail",{
+      pageTitle : "Chi tiết sản phẩm",
+      product : product
+    })
+  }catch{
+    res.redirect(`${prefixAdmin}/products`);
+  }
 }
