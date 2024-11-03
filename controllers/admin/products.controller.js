@@ -122,12 +122,12 @@ module.exports.createPostProducts =async (req,res)=>{
     const countProduct =  await Products.countDocuments();
     req.body.position =countProduct + 1
   }
-  if(req.file)
-    req.body.thumbnail = `/uploads/${req.file.filename}`
-  // console.log(req.file) 
+  
+  // console.log(req.body)
   // Thêm sản phẩm
   const product = new Products(req.body)
   await product.save();
+  
   req.flash("success", "Thêm sản phẩm thành công");
   res.redirect(`${prefixAdmin}/products`);
 }

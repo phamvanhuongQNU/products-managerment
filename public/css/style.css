@@ -29,7 +29,7 @@ border: 1px solid black;
 .products{
     padding : 20px 0;
 }
-.products .box-head{
+.box-head{
     color: green;
 }
 .products .product-item{

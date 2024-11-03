@@ -1,0 +1,13 @@
+extend ../../layout/default.pug
+include ../../mixin/box-head.pug
+block main
+	+box-head("Chi tiết sản phẩm")
+	h2 Tiêu đề: #{product.title}
+	div Giá: #{product.price}
+	div Giảm giá: #{product.discount}
+	div Còn lại: #{product.stock}
+	div 
+		img(src=product.thumbnail, alt="")
+	div Vị trí : #{product.position}
+	div Mô tả:
+		div #{product.description}

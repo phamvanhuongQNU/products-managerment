@@ -14,7 +14,8 @@ block main
               .inner-image 
                 img(src=item.thumbnail, alt="")
               .inner-content
-                h3.inner-title #{item.title}
+                .inner-title 
+                  a(href=`products/detail/${item.slug}`) #{item.title}
                 .inner-price-new <del> #{item.newPrice}$ </del> 
                 .inner-price #{item.price}$
                 .inner-discount #{item.discountPercentage} %
